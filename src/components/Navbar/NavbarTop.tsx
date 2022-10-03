@@ -1,5 +1,6 @@
-import { AppBar, Box, Grid, Link, Toolbar } from '@mui/material';
-import SearchField from '../components/SearchField';
+import { AppBar, Box, Grid, Toolbar } from '@mui/material';
+import NextLinkComposed from 'src/components/NextLinkComposed';
+import SearchField from '../SearchField';
 
 const NavbarTop = () => {
   return (
@@ -13,7 +14,12 @@ const NavbarTop = () => {
       <Toolbar>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={6} sm={6} md={6} lg={8}>
-            <Link href="/">
+            <NextLinkComposed
+              to={{
+                pathname: `/`,
+              }}
+            >
+              {/* <Link href="/"> */}
               <Box
                 component="img"
                 pt={1}
@@ -21,7 +27,8 @@ const NavbarTop = () => {
                 alt="Logo"
                 src={'Twilight-logo.png'}
               />
-            </Link>
+              {/* </Link> */}
+            </NextLinkComposed>
           </Grid>
 
           <Grid item xs={6} sm={6} md={6} lg={4}>
