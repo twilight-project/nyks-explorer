@@ -23,8 +23,8 @@ import { toHex } from '@cosmjs/encoding';
 // import { useQuery } from '@tanstack/react-query';
 // import axios from 'axios';
 
-// const twilightApiUrl = process.env.NEXT_PUBLIC_TWILIGHT_API_URL ?? '';
-const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL ?? '';
+// const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
+const rpcUrl = process.env.RPC_URL ?? '';
 
 // const getHeightString = (hash: string | string[] | undefined): string => {
 //   if (typeof hash === 'object') {
@@ -50,12 +50,11 @@ function transactionHash(rawTransactionBytes: Uint8Array) {
   return toHex(sha256(rawTransactionBytes)).toUpperCase();
 }
 
-const BlockDetail = (data: any) => {
+export default function BlockDetail() {
   const router = useRouter();
   const { height } = router.query;
 
   // const heightString = getHeightString(height);
-
   const [blockDataState, setBlockDataState] = useState<any>(null);
 
   useEffect(() => {
@@ -76,7 +75,6 @@ const BlockDetail = (data: any) => {
   // const [txDataState, setTxDataState] = useState<IndexedTx | null | undefined>(undefined);
   // const [sendMessage, setSendMessage] = useState({});
   // const [msgType, setMsgType] = useState<string | undefined>('');
-
   // const { data: blockData, status: blockDataStatus } = useQuery(
   //   ['transactionData', heightString],
   //   () =>
@@ -87,10 +85,8 @@ const BlockDetail = (data: any) => {
   //     enabled: !!heightString,
   //   },
   // );
-
   // console.log(blockData);
 
-  console.log(data);
   return (
     <Container maxWidth="xl" component="section">
       <Typography
@@ -224,6 +220,4 @@ const BlockDetail = (data: any) => {
       </Box>
     </Container>
   );
-};
-
-export default BlockDetail;
+}

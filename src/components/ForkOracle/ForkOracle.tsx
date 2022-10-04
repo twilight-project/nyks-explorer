@@ -18,9 +18,9 @@ import { useState } from 'react';
 import { validatorIPAddresses } from 'src/constants/validatorIP';
 import { ForkScannerDialog } from './ForkScannerDialog';
 
-const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL ?? '';
+const backendApiUrl = process.env.BACKEND_API_URL ?? '';
 
-const ForkOracle = () => {
+export default function ForkOracle() {
   const [peerSelected, setPeerSelected] = useState('');
   const [show, setShow] = useState(false);
 
@@ -32,7 +32,7 @@ const ForkOracle = () => {
 
   const { data: dataList, status: forkScannerDataStatus } = useQuery(
     ['forkScannerData'],
-    () => axios.get(`${backendApiUrl}/forkscanner`).then((res) => res.data),
+    () => axios.get(`${backendApiUrl}forkscanner`).then((res) => res.data),
     {
       refetchInterval: 60000,
     },
@@ -129,6 +129,4 @@ const ForkOracle = () => {
       ) : null}
     </Container>
   );
-};
-
-export default ForkOracle;
+}

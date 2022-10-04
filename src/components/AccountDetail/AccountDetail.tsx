@@ -18,9 +18,9 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { getAsString } from 'src/utils/getAsString';
 
-const twilightApiUrl = process.env.NEXT_PUBLIC_TWILIGHT_API_URL ?? '';
+const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
 
-const AccountDetail = () => {
+export default function AccountDetail() {
   const router = useRouter();
   const { address } = router.query;
 
@@ -95,6 +95,4 @@ const AccountDetail = () => {
       </Box>
     </Container>
   );
-};
-
-export default AccountDetail;
+}

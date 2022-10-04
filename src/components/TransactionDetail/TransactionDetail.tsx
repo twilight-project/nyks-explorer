@@ -20,9 +20,9 @@ const messageTypeUrlEnum = {
   btcChainTip: '/twilightproject.nyks.nyks.MsgSeenBtcChainTip',
 };
 
-const twilightApiUrl = process.env.NEXT_PUBLIC_TWILIGHT_API_URL ?? '';
+const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
 
-const TransactionDetail = () => {
+export default function TransactionDetail() {
   const router = useRouter();
   const { hash } = router.query;
 
@@ -136,9 +136,7 @@ const TransactionDetail = () => {
       </Box>
     </Container>
   );
-};
-
-export default TransactionDetail;
+}
 
 const MsgSeenBtcChainTip = ({
   transactionData,

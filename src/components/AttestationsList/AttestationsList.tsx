@@ -15,7 +15,7 @@ import { Box } from '@mui/system';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const twilightApiUrl = process.env.NEXT_PUBLIC_TWILIGHT_API_URL ?? '';
+const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
 
 export default function AttestationsList() {
   const { data: dataList, status: attestationsDataStatus } = useQuery(

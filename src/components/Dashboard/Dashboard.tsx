@@ -15,8 +15,8 @@ import {
 import { ValidatorDialog } from './ValidatorDialog';
 import { BlocksDialog } from './BlocksDialog';
 
-const twilightApiUrl = process.env.NEXT_PUBLIC_TWILIGHT_API_URL ?? '';
-const backendApiUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL ?? '';
+const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
+const backendApiUrl = process.env.BACKEND_API_URL ?? '';
 
 export default function Dashboard() {
   const [showValidatorModal, setShowValidatorModal] = useState(false);
@@ -30,7 +30,7 @@ export default function Dashboard() {
 
   const { data: nyksChainData, status: nyksChainDataStatus } = useQuery(
     ['nyksChainData'],
-    () => axios.get(`${backendApiUrl}/nyks`).then((res) => res.data),
+    () => axios.get(`${backendApiUrl}nyks`).then((res) => res.data),
     {
       refetchInterval: 3000,
     },
@@ -49,7 +49,7 @@ export default function Dashboard() {
 
   const { data: forkScannerData, status: forkScannerDataStatus } = useQuery(
     ['forkScannerData'],
-    () => axios.get(`${backendApiUrl}/forkscanner`).then((res) => res.data),
+    () => axios.get(`${backendApiUrl}forkscanner`).then((res) => res.data),
     {
       refetchInterval: 60000,
     },
@@ -75,7 +75,7 @@ export default function Dashboard() {
 
   const { data: forkMonitorData, status: forkMonitorDataStatus } = useQuery(
     ['forkMonitorData'],
-    () => axios.get(`${backendApiUrl}/forkmonitor`).then((res) => res.data),
+    () => axios.get(`${backendApiUrl}forkmonitor`).then((res) => res.data),
     {
       refetchInterval: 60000,
     },
