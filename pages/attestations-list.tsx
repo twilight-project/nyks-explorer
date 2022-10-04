@@ -22,7 +22,7 @@ const AttestationsListPage = () => {
     ['attestationsData1'],
     () =>
       axios
-        .get(`${twilightApiUrl}/nyks/nyks/attestations?order_by=desc&limit=12`)
+        .get(`${twilightApiUrl}twilight-project/nyks/nyks/attestations?order_by=desc&limit=12`)
         .then((res) => res.data),
     {
       refetchInterval: 60000,

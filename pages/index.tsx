@@ -56,7 +56,9 @@ const Home: NextPage = () => {
   const { data: attestationsData, status: attestationsDataStatus } = useQuery(
     ['attestationsData'],
     () =>
-      axios.get(`${twilightApiUrl}/nyks/nyks/attestations?order_by=asc`).then((res) => res.data),
+      axios
+        .get(`${twilightApiUrl}twilight-project/nyks/nyks/attestations?order_by=asc`)
+        .then((res) => res.data),
     {
       refetchInterval: 60000,
     },
