@@ -20,30 +20,18 @@ import { useEffect, useState } from 'react';
 import { Tx } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
 import { sha256 } from '@cosmjs/crypto';
 import { toHex } from '@cosmjs/encoding';
-// import { useQuery } from '@tanstack/react-query';
-// import axios from 'axios';
 
-// const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
 const rpcUrl = process.env.RPC_URL ?? '';
 
-// const getHeightString = (hash: string | string[] | undefined): string => {
-//   if (typeof hash === 'object') {
-//     return hash[0];
-//   }
-//   return hash ?? '';
-// };
-
-function transactionType(typeUrl: any) {
+function transactionType(typeUrl: string | undefined): 'Send' | 'MsgSeenBtcChainTip' | 'Unknown' {
   console.log('typeUrl', typeUrl);
   if (typeUrl === '/cosmos.bank.v1beta1.MsgSend') {
     return 'Send';
-  }
-
-  if (typeUrl === '/twilightproject.nyks.nyks.MsgSeenBtcChainTip') {
+  } else if (typeUrl === '/twilightproject.nyks.nyks.MsgSeenBtcChainTip') {
     return 'MsgSeenBtcChainTip';
+  } else {
+    return 'Unknown';
   }
-
-  return 'Unknown';
 }
 
 function transactionHash(rawTransactionBytes: Uint8Array) {
@@ -54,7 +42,6 @@ export default function BlockDetail() {
   const router = useRouter();
   const { height } = router.query;
 
-  // const heightString = getHeightString(height);
   const [blockDataState, setBlockDataState] = useState<any>(null);
 
   useEffect(() => {
@@ -71,21 +58,6 @@ export default function BlockDetail() {
 
     getBlockInfo();
   }, [height]);
-
-  // const [txDataState, setTxDataState] = useState<IndexedTx | null | undefined>(undefined);
-  // const [sendMessage, setSendMessage] = useState({});
-  // const [msgType, setMsgType] = useState<string | undefined>('');
-  // const { data: blockData, status: blockDataStatus } = useQuery(
-  //   ['transactionData', heightString],
-  //   () =>
-  //     axios
-  //       .get(`${twilightApiUrl}cosmos/tx/v1beta1/txs/block/${heightString}`)
-  //       .then((res) => res.data),
-  //   {
-  //     enabled: !!heightString,
-  //   },
-  // );
-  // console.log(blockData);
 
   return (
     <Container maxWidth="xl" component="section">

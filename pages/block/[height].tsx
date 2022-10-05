@@ -1,6 +1,7 @@
+import type { NextPage } from 'next';
 import { BlockDetail } from 'src/components/BlockDetail';
 
-const BlockDetailPage = () => {
+const BlockDetailPage: NextPage = () => {
   return <BlockDetail />;
 };
 

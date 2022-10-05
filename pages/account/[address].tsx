@@ -1,6 +1,7 @@
+import type { NextPage } from 'next';
 import AccountDetail from 'src/components/AccountDetail/AccountDetail';
 
-const AccountDetailPage = () => {
+const AccountDetailPage: NextPage = () => {
   return <AccountDetail />;
 };
 

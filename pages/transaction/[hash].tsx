@@ -1,6 +1,7 @@
+import type { NextPage } from 'next';
 import { TransactionDetail } from 'src/components/TransactionDetail';
 
-const TransactionDetailPage = () => {
+const TransactionDetailPage: NextPage = () => {
   return <TransactionDetail />;
 };
 
