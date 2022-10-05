@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "cacheDirectories": [
+    ".next/cache"
+  ],
   "dependencies": {
     "@cosmjs/stargate": "^0.29.0",
     "@emotion/cache": "^11.10.3",
