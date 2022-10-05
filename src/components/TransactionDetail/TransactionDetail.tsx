@@ -11,9 +11,8 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { getAsString } from 'src/utils/getAsString';
+import { useQueryWithAxios } from 'src/hooks';
 
 const messageTypeUrlEnum = {
   sendMessage: '/cosmos.bank.v1beta1.MsgSend',
@@ -30,13 +29,10 @@ export default function TransactionDetail() {
 
   const [msgType, setMsgType] = useState<string | undefined>('');
 
-  const { data: transactionData, status: transactionDataStatus } = useQuery(
+  const { data: transactionData, status: transactionDataStatus } = useQueryWithAxios(
     ['transactionData', hashString],
-    () =>
-      axios.get(`${twilightApiUrl}/cosmos/tx/v1beta1/txs/${hashString}`).then((res) => res.data),
-    {
-      enabled: !!hashString,
-    },
+    `${twilightApiUrl}/cosmos/tx/v1beta1/txs/${hashString}`,
+    { enabled: !!hashString },
   );
 
   useEffect(() => {

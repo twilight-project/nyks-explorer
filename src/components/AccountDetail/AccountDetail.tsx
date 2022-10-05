@@ -13,9 +13,8 @@ import {
   TableCell,
   TableBody,
 } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useQueryWithAxios } from 'src/hooks';
 import { getAsString } from 'src/utils/getAsString';
 
 const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
@@ -26,15 +25,10 @@ export default function AccountDetail() {
 
   const addressString = getAsString(address);
 
-  const { data: accountData, status: accountDataStatus } = useQuery(
+  const { data: accountData, status: accountDataStatus } = useQueryWithAxios(
     ['accountData', addressString],
-    () =>
-      axios
-        .get(`${twilightApiUrl}cosmos/bank/v1beta1/balances/${addressString}`)
-        .then((res) => res.data),
-    {
-      enabled: !!addressString,
-    },
+    `${twilightApiUrl}cosmos/bank/v1beta1/balances/${addressString}`,
+    { enabled: !!addressString },
   );
 
   return (

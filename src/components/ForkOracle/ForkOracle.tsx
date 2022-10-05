@@ -12,10 +12,9 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { useState } from 'react';
 import { validatorIPAddresses } from 'src/constants/validatorIP';
+import { useQueryWithAxios } from 'src/hooks';
 import { ForkScannerDialog } from './ForkScannerDialog';
 
 const backendApiUrl = process.env.BACKEND_API_URL ?? '';
@@ -30,12 +29,10 @@ export default function ForkOracle() {
     setShow(true);
   };
 
-  const { data: dataList, status: forkScannerDataStatus } = useQuery(
+  const { data: dataList, status: forkScannerDataStatus } = useQueryWithAxios(
     ['forkScannerData'],
-    () => axios.get(`${backendApiUrl}forkscanner`).then((res) => res.data),
-    {
-      refetchInterval: 60000,
-    },
+    `${backendApiUrl}forkscanner`,
+    { refetchInterval: 60000 },
   );
 
   return (

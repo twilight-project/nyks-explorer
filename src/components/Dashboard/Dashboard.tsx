@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { ValidatorDialog } from './ValidatorDialog';
 import { BlocksDialog } from './BlocksDialog';
+import { useQueryWithAxios } from 'src/hooks';
 
 const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
 const backendApiUrl = process.env.BACKEND_API_URL ?? '';
@@ -28,31 +29,22 @@ export default function Dashboard() {
   const handleCloseBlock = () => setShowBlockModal(false);
   const handleShowBlock = () => setShowBlockModal(true);
 
-  const { data: nyksChainData, status: nyksChainDataStatus } = useQuery(
+  const { data: nyksChainData, status: nyksChainDataStatus } = useQueryWithAxios(
     ['nyksChainData'],
-    () => axios.get(`${backendApiUrl}nyks`).then((res) => res.data),
-    {
-      refetchInterval: 3000,
-    },
+    `${backendApiUrl}nyks`,
+    { refetchInterval: 3000 },
   );
 
-  const { data: attestationsData, status: attestationsDataStatus } = useQuery(
+  const { data: attestationsData, status: attestationsDataStatus } = useQueryWithAxios(
     ['attestationsData'],
-    () =>
-      axios
-        .get(`${twilightApiUrl}twilight-project/nyks/nyks/attestations?order_by=asc`)
-        .then((res) => res.data),
-    {
-      refetchInterval: 60000,
-    },
+    `${twilightApiUrl}twilight-project/nyks/nyks/attestations?order_by=asc`,
+    { refetchInterval: 60000 },
   );
 
-  const { data: forkScannerData, status: forkScannerDataStatus } = useQuery(
+  const { data: forkScannerData, status: forkScannerDataStatus } = useQueryWithAxios(
     ['forkScannerData'],
-    () => axios.get(`${backendApiUrl}forkscanner`).then((res) => res.data),
-    {
-      refetchInterval: 60000,
-    },
+    `${backendApiUrl}forkscanner`,
+    { refetchInterval: 60000 },
   );
 
   const { data: mempoolSpaceData, status: mempoolSpaceDataStatus } = useQuery(
@@ -68,17 +60,13 @@ export default function Dashboard() {
 
       return { height: blocksTipHeightData, hash: blocksTipHashData };
     },
-    {
-      refetchInterval: 60000,
-    },
+    { refetchInterval: 60000 },
   );
 
-  const { data: forkMonitorData, status: forkMonitorDataStatus } = useQuery(
+  const { data: forkMonitorData, status: forkMonitorDataStatus } = useQueryWithAxios(
     ['forkMonitorData'],
-    () => axios.get(`${backendApiUrl}forkmonitor`).then((res) => res.data),
-    {
-      refetchInterval: 60000,
-    },
+    `${backendApiUrl}forkmonitor`,
+    { refetchInterval: 60000 },
   );
 
   const attestedItems = attestationsData?.attestations?.filter(

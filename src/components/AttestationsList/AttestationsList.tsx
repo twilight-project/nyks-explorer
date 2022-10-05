@@ -1,4 +1,5 @@
 import {
+  Box,
   Container,
   Typography,
   Card,
@@ -11,22 +12,15 @@ import {
   Divider,
   Skeleton,
 } from '@mui/material';
-import { Box } from '@mui/system';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useQueryWithAxios } from 'src/hooks';
 
 const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
 
 export default function AttestationsList() {
-  const { data: dataList, status: attestationsDataStatus } = useQuery(
+  const { data: dataList, status: attestationsDataStatus } = useQueryWithAxios(
     ['attestationsData1'],
-    () =>
-      axios
-        .get(`${twilightApiUrl}twilight-project/nyks/nyks/attestations?order_by=desc&limit=12`)
-        .then((res) => res.data),
-    {
-      refetchInterval: 60000,
-    },
+    `${twilightApiUrl}twilight-project/nyks/nyks/attestations?order_by=desc&limit=12`,
+    { refetchInterval: 60000 },
   );
 
   return (
