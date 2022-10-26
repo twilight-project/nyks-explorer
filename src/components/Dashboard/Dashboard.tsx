@@ -15,6 +15,7 @@ import {
 import { ValidatorDialog } from './ValidatorDialog';
 import { BlocksDialog } from './BlocksDialog';
 import { useQueryWithAxios } from 'src/hooks';
+import { NyksBlocks } from '../NyksBlocks';
 
 const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
 const backendApiUrl = process.env.BACKEND_API_URL ?? '';
@@ -278,10 +279,12 @@ export default function Dashboard() {
             {NYKSAttested}
           </Grid>
         </Grid>
+
+        <NyksBlocks nyksChainData={nyksChainData?.blocks} />
       </Container>
 
       <Container maxWidth="xl" component="section" sx={{ mb: 5 }}>
-        <Typography variant="h4" component="h2" color="text.secondary" mt={6} mb={2}>
+        <Typography variant="h4" component="h2" color="text.secondary" mt={2} mb={2}>
           Bitcoin Chaintip Info
         </Typography>
 
