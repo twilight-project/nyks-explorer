@@ -15,6 +15,7 @@ import {
 import { ValidatorDialog } from './ValidatorDialog';
 import { BlocksDialog } from './BlocksDialog';
 import { useQueryWithAxios } from 'src/hooks';
+import CountUp from 'react-countup';
 import { NyksBlocks } from '../NyksBlocks';
 
 const twilightApiUrl = process.env.TWILIGHT_API_URL ?? '';
@@ -84,10 +85,15 @@ export default function Dashboard() {
           <>
             <Typography color="text.secondary" gutterBottom>
               <strong>Height: </strong>
-              {nyksChainData?.blocks?.[0]?.block?.header?.height}
+              <CountUp
+                preserveValue
+                end={nyksChainData?.blocks?.[0]?.block?.header?.height}
+                duration={0.8}
+              />
             </Typography>
             <Typography color="text.secondary" gutterBottom>
-              <strong>Bonded Tokens: </strong>3{nyksChainData?.unbonded_tokens?.pool?.bonded_tokens}
+              <strong>Bonded Tokens: </strong>
+              {nyksChainData?.unbonded_tokens?.pool?.bonded_tokens}
             </Typography>
             <Typography color="text.secondary" gutterBottom>
               <strong>Number of Validators: </strong>{' '}
@@ -131,7 +137,11 @@ export default function Dashboard() {
           <>
             <Typography color="text.secondary" gutterBottom>
               <strong>Height: </strong>
-              {attestedItems?.[attestationsListLength - 1]?.proposal.height}
+              <CountUp
+                preserveValue
+                end={attestedItems?.[attestationsListLength - 1]?.proposal.height}
+                duration={0.8}
+              />
             </Typography>
 
             <Typography color="text.secondary" gutterBottom sx={{ wordBreak: 'break-all' }}>
