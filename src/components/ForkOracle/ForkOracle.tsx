@@ -79,10 +79,7 @@ export default function ForkOracle() {
                       }
                     </TableCell>
                     <TableCell align="center">
-                      {
-                        dataList[peer].chaintips.filter((item: any) => item.status === 'active')
-                          ?.length
-                      }
+                      {dataList[peer].chaintips.btc_node_info.length}
                     </TableCell>
                     <TableCell align="center">
                       <Button variant="outlined" size="small" onClick={() => handleShow(peer)}>
