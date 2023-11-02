@@ -9,7 +9,7 @@ import {
   Skeleton,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getAsString } from 'src/utils/getAsString';
 import { useQueryWithAxios } from 'src/hooks';
@@ -28,6 +28,7 @@ export default function TransactionDetail() {
   const hashString = getAsString(hash);
 
   const [msgType, setMsgType] = useState<string | undefined>('');
+  const [zkosTxDetails, setZkosTxDetails] = useState<string | undefined>(undefined);
 
   const { data: transactionData, status: transactionDataStatus } = useQueryWithAxios(
     ['transactionData', hashString],
@@ -40,6 +41,20 @@ export default function TransactionDetail() {
       setMsgType(transactionData.tx.body.messages[0]['@type']);
   }, [transactionData]);
 
+  const txMessage = transactionData?.tx?.body?.messages?.[0];
+
+  useEffect(() => {
+    if (txMessage?.txByteCode) {
+      (async () => {
+        const zkos = await import('zkos-wasm');
+        const decodedZkosTx = zkos.decodeZkosTx(txMessage.txByteCode);
+        setZkosTxDetails(decodedZkosTx);
+      })();
+    } else {
+      setZkosTxDetails(undefined);
+    }
+  }, [txMessage?.txByteCode]);
+
   return (
     <Container maxWidth="xl" component="section">
       <Typography
@@ -50,7 +65,7 @@ export default function TransactionDetail() {
         mb={2}
         textAlign="center"
       >
-        Transasction Details
+        Transaction Details
       </Typography>
 
       <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
@@ -120,6 +135,43 @@ export default function TransactionDetail() {
                 </Grid>
               </CardContent>
             )}
+          </Card>
+
+          <Card raised sx={{ mt: 3, px: 3, pt: 1 }}>
+            <CardHeader title="Message" />
+            <Divider />
+
+            <CardContent>
+              <Grid container spacing={2}>
+                {transactionDataStatus === 'success'
+                  ? Object.entries(txMessage).map(([key, value]) => (
+                      <Fragment key={key}>
+                        <Grid item xs={3}>
+                          <Typography>{key}</Typography>
+                        </Grid>
+
+                        {typeof value === 'string' && key !== 'txByteCode' ? (
+                          <Grid item xs={9}>
+                            <Typography>{value}</Typography>
+                          </Grid>
+                        ) : null}
+
+                        {typeof value === 'object' ? (
+                          <Grid item xs={9}>
+                            <Typography component="pre">{JSON.stringify(value)}</Typography>
+                          </Grid>
+                        ) : null}
+
+                        {key === 'txByteCode' && typeof zkosTxDetails === 'string' ? (
+                          <Grid item xs={9}>
+                            <Typography sx={{ wordBreak: 'break-all' }}>{zkosTxDetails}</Typography>
+                          </Grid>
+                        ) : null}
+                      </Fragment>
+                    ))
+                  : null}
+              </Grid>
+            </CardContent>
           </Card>
 
           {msgType === messageTypeUrlEnum.btcChainTip ? (
