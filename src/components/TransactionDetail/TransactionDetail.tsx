@@ -13,6 +13,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getAsString } from 'src/utils/getAsString';
 import { useQueryWithAxios } from 'src/hooks';
+import NextLinkComposed from '../NextLinkComposed';
 
 const messageTypeUrlEnum = {
   sendMessage: '/cosmos.bank.v1beta1.MsgSend',
@@ -115,7 +116,13 @@ export default function TransactionDetail() {
                       {transactionDataStatus === 'loading' ? (
                         <Skeleton width={250} variant="text" />
                       ) : (
-                        transactionData.tx_response.height
+                        <NextLinkComposed
+                          to={{
+                            pathname: `/block/${transactionData.tx_response.height}`,
+                          }}
+                        >
+                          {transactionData.tx_response.height}
+                        </NextLinkComposed>
                       )}
                     </Typography>
                   </Grid>

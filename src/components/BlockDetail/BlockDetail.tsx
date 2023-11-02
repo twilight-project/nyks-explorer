@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import { Tx } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
 import { sha256 } from '@cosmjs/crypto';
 import { toHex } from '@cosmjs/encoding';
+import NextLinkComposed from '../NextLinkComposed';
 
 const rpcUrl = process.env.RPC_URL ?? '';
 
@@ -177,10 +178,16 @@ export default function BlockDetail() {
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell component="th" scope="row" sx={{ wordBreak: 'break-all' }}>
-                        {transactionHash(tx)}
+                        <NextLinkComposed
+                          to={{
+                            pathname: `/transaction/${transactionHash(tx)}`,
+                          }}
+                        >
+                          {transactionHash(tx)}
+                        </NextLinkComposed>
                       </TableCell>
                       <TableCell>
-                        {transactionType(Tx.decode(tx)?.body?.messages[0]?.typeUrl)}
+                        {transactionType(Tx.decode(tx)?.body?.messages[0]?.typeUrl!)}
                       </TableCell>
                     </TableRow>
                   ))}
