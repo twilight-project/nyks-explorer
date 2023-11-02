@@ -67,7 +67,7 @@ export default function Dashboard() {
 
   const { data: forkMonitorData, status: forkMonitorDataStatus } = useQueryWithAxios(
     ['forkMonitorData'],
-    `${backendApiUrl}forkmonitor`,
+    `http://localhost:3000/api/forkmonitor`,
     { refetchInterval: 60000 },
   );
 
