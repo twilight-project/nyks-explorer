@@ -180,13 +180,13 @@ export default function Dashboard() {
           <>
             <Typography color="text.secondary" gutterBottom>
               <strong>Height: </strong>
-              {forkScannerData?.['forkscanner_1']?.chaintips?.btc_node_info?.[0].status?.blocks}
+              {forkScannerData?.['forkscanner_3']?.chaintips?.btc_node_info?.[0].status?.blocks}
             </Typography>
 
             <Typography color="text.secondary" gutterBottom sx={{ wordWrap: 'break-word' }}>
               <strong>Chaintip: </strong>
               {
-                forkScannerData?.['forkscanner_1']?.chaintips?.btc_node_info?.[0].status
+                forkScannerData?.['forkscanner_3']?.chaintips?.btc_node_info?.[0].status
                   ?.bestblockhash
               }
             </Typography>

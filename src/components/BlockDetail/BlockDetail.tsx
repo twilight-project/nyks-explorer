@@ -24,15 +24,12 @@ import NextLinkComposed from '../NextLinkComposed';
 
 const rpcUrl = process.env.RPC_URL ?? '';
 
-function transactionType(typeUrl: string | undefined): 'Send' | 'MsgSeenBtcChainTip' | 'Unknown' {
-  console.log('typeUrl', typeUrl);
-  if (typeUrl === '/cosmos.bank.v1beta1.MsgSend') {
-    return 'Send';
-  } else if (typeUrl === '/twilightproject.nyks.nyks.MsgSeenBtcChainTip') {
-    return 'MsgSeenBtcChainTip';
-  } else {
-    return 'Unknown';
+function transactionType(typeUrl: string) {
+  const words = typeUrl.split('.');
+  if (words.length > 0) {
+    return words[words.length - 1];
   }
+  return 'Unknown';
 }
 
 function transactionHash(rawTransactionBytes: Uint8Array) {
