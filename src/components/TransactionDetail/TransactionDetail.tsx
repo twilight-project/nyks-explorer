@@ -171,7 +171,17 @@ export default function TransactionDetail() {
 
                         {key === 'txByteCode' && typeof zkosTxDetails === 'string' ? (
                           <Grid item xs={9}>
-                            <Typography sx={{ wordBreak: 'break-all' }}>{zkosTxDetails}</Typography>
+                            <Typography
+                              sx={{
+                                wordBreak: 'break-all',
+                                backgroundColor: '#f5f5f5',
+                                borderRadius: 1,
+                                border: 1 + 'px solid' + '#DDDDDD',
+                                padding: 1,
+                              }}
+                            >
+                              {zkosTxDetails}
+                            </Typography>
                           </Grid>
                         ) : null}
                       </Fragment>
